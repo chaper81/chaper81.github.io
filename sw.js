@@ -1,21 +1,27 @@
 const CACHE_NAME = 'chapter-81-v1';
-const assetsToCache = [
-  './',
-  './index.html',
-  './red hibi.jpg',
-  './c81.png'
-];
 
-// Install Service Worker and cache core assets
+// Install event - take control immediately
 self.addEventListener('install', event => {
+  self.skipWaiting();
   event.waitUntil(
     caches.open(CACHE_NAME).then(cache => {
-      return cache.addAll(assetsToCache);
+      return cache.addAll([
+        './',
+        './index.html',
+        './manifest.json',
+        './c81.png',
+        './red hibi.jpg'
+      ]);
     })
   );
 });
 
-// Fetch assets from cache when offline
+// Activate event - claim clients immediately
+self.addEventListener('activate', event => {
+  event.waitUntil(clients.claim());
+});
+
+// Fetch event
 self.addEventListener('fetch', event => {
   event.respondWith(
     caches.match(event.request).then(response => {
