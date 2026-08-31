@@ -471,6 +471,8 @@
             display: flex;
             flex-direction: column;
             gap: 10px;
+            flex-shrink: 0;
+            min-height: min-content;
             scrollbar-width: none;
         }
 
@@ -557,9 +559,9 @@
                     <span class="toc-number">4</span>
                     <span class="toc-title">Resources</span>
                 </div>
-                <div class="toc-item" onclick="openInstagram()">
+                <div class="toc-item" style="cursor: default; opacity: 0.7;">
                     <span class="toc-number">5</span>
-                    <span class="toc-title">Instagram</span>
+                    <span class="toc-title">Seed to Harvest</span>
                 </div>
             </div>
         </nav>
@@ -658,24 +660,8 @@
                 <button class="blog-back-btn" onclick="closePdf()">← Back</button>
             </div>
             <div style="flex-grow: 1; width: 100%; margin-top: 10px; overflow: hidden; border: 1px solid #e2e2e2; background: #faf9f5;">
-                <object id="pdfObject" data="" type="application/pdf" style="width: 100%; height: 100%;">
-                    <iframe id="pdfFrame" src="" style="width: 100%; height: 100%; border: none;"></iframe>
-                </object>
+                <iframe id="pdfFrame" src="" style="width: 100%; height: 100%; border: none;"></iframe>
             </div>
-        </div>
-    </div>
-
-    <div class="blog-page" id="instagramPage">
-        <div class="blog-header">
-            <span class="blog-header-title">@meandmyharvest</span>
-            <button class="blog-back-btn" onclick="closeInstagram()">← Close</button>
-        </div>
-
-        <div style="flex-grow: 1; width: 100%; margin-top: 10px; overflow: hidden; border: 1px solid #e2e2e2; background: #faf9f5;">
-            <iframe src="https://www.instagram.com/meandmyharvest/" 
-                    style="width: 100%; height: 100%; border: none;" 
-                    sandbox="allow-scripts allow-same-origin allow-popups">
-            </iframe>
         </div>
     </div>
 
@@ -754,45 +740,32 @@
             }, 200);
         }
 
-        // View-Only Local PDF Viewer Functions
-        function openPdf(filename, title) {
+        // Mobile-Safe Offline PDF Viewer Functions via Cache Blob
+        async function openPdf(filename, title) {
             document.getElementById('pdfTitle').innerText = title;
-            const encodedFilename = encodeURI(filename);
+            const pdfView = document.getElementById('pdfView');
+            pdfView.classList.add('active');
+
+            const iframe = document.getElementById('pdfFrame');
             
-            document.getElementById('pdfObject').data = encodedFilename;
-            document.getElementById('pdfFrame').src = encodedFilename;
-            document.getElementById('pdfView').classList.add('active');
+            try {
+                const response = await fetch(filename);
+                const blob = await response.blob();
+                const blobUrl = URL.createObjectURL(blob);
+                iframe.src = blobUrl;
+            } catch (err) {
+                console.error("Could not load offline PDF:", err);
+                iframe.srcdoc = "<p style='padding:20px; font-family:sans-serif; font-size:12px; color:#333;'>Error loading document offline.</p>";
+            }
         }
 
         function closePdf() {
+            const iframe = document.getElementById('pdfFrame');
+            if (iframe.src.startsWith('blob:')) {
+                URL.revokeObjectURL(iframe.src);
+            }
+            iframe.src = '';
             document.getElementById('pdfView').classList.remove('active');
-            setTimeout(() => {
-                document.getElementById('pdfObject').data = '';
-                document.getElementById('pdfFrame').src = '';
-            }, 300);
-        }
-
-        function openInstagram() {
-            const menu = document.getElementById('fullscreenMenu');
-            menu.classList.remove('active');
-
-            const mainCover = document.getElementById('mainCover');
-            const instagramPage = document.getElementById('instagramPage');
-            
-            mainCover.classList.add('fade-out');
-            setTimeout(() => {
-                instagramPage.classList.add('active');
-            }, 300);
-        }
-
-        function closeInstagram() {
-            const mainCover = document.getElementById('mainCover');
-            const instagramPage = document.getElementById('instagramPage');
-
-            instagramPage.classList.remove('active');
-            setTimeout(() => {
-                mainCover.classList.remove('fade-out');
-            }, 200);
         }
 
         if ('serviceWorker' in navigator) {
