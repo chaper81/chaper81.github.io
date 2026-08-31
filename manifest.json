@@ -1,0 +1,16 @@
+{
+  "name": "Chapter 81",
+  "short_name": "Chapter 81",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#3d405b",
+  "icons": [
+    {
+      "src": "c81.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
