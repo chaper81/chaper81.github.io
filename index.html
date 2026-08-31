@@ -46,10 +46,15 @@
             padding: 14px 16px 16px 16px;
             display: flex;
             flex-direction: column;
+            transition: opacity 0.4s ease;
+        }
+
+        .magazine-cover.fade-out {
+            opacity: 0;
         }
 
         @media (min-width: 421px) {
-            .magazine-cover {
+            .magazine-cover, .blog-page {
                 max-width: 420px;
                 height: 85vh;
                 max-height: 750px;
@@ -111,6 +116,7 @@
             align-items: center;
             text-decoration: none;
             transition: opacity 0.2s;
+            cursor: pointer;
         }
 
         .toc-item:hover {
@@ -157,7 +163,7 @@
             opacity: 0.6;
         }
 
-        /* Locked Top Mint Banner Header */
+        /* Top Mint Banner Header */
         .top-mint-banner {
             position: absolute;
             top: 0;
@@ -222,12 +228,12 @@
             text-transform: uppercase;
         }
 
-        /* Widened & Locked Flower Picture (expanded left to 80px & right to 16px to show full petals) */
+        /* Flower Picture */
         .olive-container {
             position: absolute;
             top: 145px;
-            left: 80px;  /* Widened horizontally */
-            right: 16px; /* Pushed further out to reveal petals */
+            left: 80px;  
+            right: 16px; 
             bottom: 95px;
             z-index: 4;
         }
@@ -246,14 +252,14 @@
             display: block;
         }
 
-        /* Locked '81' Positioned over boundary & higher z-index overlay */
+        /* '81' Position */
         .eighty-one-container {
             position: absolute;
-            top: 120px; /* Locked right through center waist of 8 */
+            top: 120px; 
             left: 20px;
             width: 85px;
             bottom: 95px;
-            z-index: 6; /* Sits above image layer */
+            z-index: 6; 
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -276,7 +282,7 @@
             margin: 12px 0 0 0;
         }
 
-        /* Locked Bottom Paragraph Section */
+        /* Bottom Paragraph Section */
         .bottom-section {
             position: absolute;
             bottom: 12px;
@@ -325,13 +331,142 @@
             line-height: 1.25;
             color: var(--lime-eighty);
             font-weight: 500;
-            white-space: nowrap; /* Keeps line layout strictly locked */
+            white-space: nowrap; 
+        }
+
+        /* --- BLOG PAGE STYLES --- */
+        .blog-page {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100dvh;
+            background-color: var(--bg-color);
+            z-index: 30;
+            display: flex;
+            flex-direction: column;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.5s ease;
+            padding: 16px;
+        }
+
+        .blog-page.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .blog-header {
+            background-color: var(--mint-box);
+            padding: 16px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--text-dark);
+        }
+
+        .blog-header-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            color: var(--chapter-white);
+            text-transform: uppercase;
+        }
+
+        .blog-back-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.6rem;
+            letter-spacing: 2px;
+            font-weight: 600;
+            color: var(--text-dark);
+            text-transform: uppercase;
+        }
+
+        .blog-back-btn:hover {
+            opacity: 0.7;
+        }
+
+        .blog-feed {
+            flex-grow: 1;
+            overflow-y: auto;
+            padding: 16px 4px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            scrollbar-width: none;
+        }
+
+        .blog-feed::-webkit-scrollbar {
+            display: none;
+        }
+
+        .blog-post {
+            border: 1px solid #e2e2e2;
+            background-color: #faf9f5;
+            padding: 14px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .blog-post-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .blog-author {
+            font-size: 0.65rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            color: var(--mint-box);
+            text-transform: uppercase;
+        }
+
+        .blog-date {
+            font-size: 0.55rem;
+            color: #777;
+            font-weight: 400;
+        }
+
+        .blog-post-img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+
+        .blog-post-content {
+            font-size: 0.65rem;
+            line-height: 1.4;
+            color: #333;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .blog-post-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid #eae5d9;
+            padding-top: 8px;
+            font-size: 0.6rem;
+            color: var(--mint-box);
+        }
+
+        .blog-tag {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 0.9rem;
+            font-style: italic;
+            color: #555877;
         }
     </style>
 </head>
 <body>
 
-    <div class="magazine-cover">
+    <div class="magazine-cover" id="mainCover">
         <nav class="fullscreen-menu" id="fullscreenMenu">
             <button class="back-btn" onclick="toggleMenu()">← Back</button>
             
@@ -342,24 +477,20 @@
                     <span class="toc-number">1</span>
                     <span class="toc-title">Bio</span>
                 </a>
-                <a href="#" class="toc-item" onclick="toggleMenu()">
+                <div class="toc-item" onclick="openBlog()">
                     <span class="toc-number">2</span>
                     <span class="toc-title">Blog</span>
-                </a>
-                <a href="#" class="toc-item" onclick="toggleMenu()">
+                </div>
+                <a href="mailto:seedtoharvest@gmail.com" class="toc-item">
                     <span class="toc-number">3</span>
                     <span class="toc-title">Email</span>
                 </a>
-                <a href="#" class="toc-item" onclick="toggleMenu()">
+                <a href="https://docs.google.com/document/d/1gzhUx6GGKfY0IsUWqTSm8uw_Hh7ghYt9re6VdYwoViY/edit?usp=sharing" target="_blank" rel="noopener noreferrer" class="toc-item">
                     <span class="toc-number">4</span>
-                    <span class="toc-title">Instagram</span>
-                </a>
-                <a href="#" class="toc-item" onclick="toggleMenu()">
-                    <span class="toc-number">5</span>
                     <span class="toc-title">Resources</span>
                 </a>
                 <a href="#" class="toc-item" onclick="toggleMenu()">
-                    <span class="toc-number">6</span>
+                    <span class="toc-number">5</span>
                     <span class="toc-title">Seed to Harvest</span>
                 </a>
             </div>
@@ -402,18 +533,66 @@
         </div>
     </div>
 
+    <div class="blog-page" id="blogPage">
+        <div class="blog-header">
+            <span class="blog-header-title">The Field Notes</span>
+            <button class="blog-back-btn" onclick="closeBlog()">← Close</button>
+        </div>
+
+        <div class="blog-feed" id="blogFeedContainer">
+            </div>
+    </div>
+
+    <script src="blog-data.js"></script>
+
     <script>
+        // Load blog posts into the feed dynamically on page load
+        window.addEventListener('DOMContentLoaded', () => {
+            const feedContainer = document.getElementById('blogFeedContainer');
+            if (typeof blogPosts !== 'undefined') {
+                feedContainer.innerHTML = blogPosts.map(post => `
+                    <article class="blog-post">
+                        <div class="blog-post-header">
+                            <span class="blog-author">${post.author}</span>
+                            <span class="blog-date">${post.date}</span>
+                        </div>
+                        ${post.image ? `<img src="${post.image}" alt="Blog Image" class="blog-post-img">` : ''}
+                        <p class="blog-post-content">${post.content}</p>
+                        <div class="blog-post-footer">
+                            <span class="blog-tag">${post.tag}</span>
+                            <span>❤️ ${post.likes} likes</span>
+                        </div>
+                    </article>
+                `).join('');
+            }
+        });
+
         function toggleMenu() {
             const menu = document.getElementById('fullscreenMenu');
             menu.classList.toggle('active');
         }
 
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('sw.js')
-                    .then(reg => console.log('Service Worker registered!', reg))
-                    .catch(err => console.log('Service Worker registration failed: ', err));
-            });
+        function openBlog() {
+            const menu = document.getElementById('fullscreenMenu');
+            menu.classList.remove('active');
+
+            const mainCover = document.getElementById('mainCover');
+            const blogPage = document.getElementById('blogPage');
+            
+            mainCover.classList.add('fade-out');
+            setTimeout(() => {
+                blogPage.classList.add('active');
+            }, 300);
+        }
+
+        function closeBlog() {
+            const mainCover = document.getElementById('mainCover');
+            const blogPage = document.getElementById('blogPage');
+
+            blogPage.classList.remove('active');
+            setTimeout(() => {
+                mainCover.classList.remove('fade-out');
+            }, 200);
         }
     </script>
 </body>
