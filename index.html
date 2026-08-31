@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Chapter 81</title>
     <link rel="manifest" href="manifest.json">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -33,20 +33,32 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 20px;
+            padding: 0;
+            margin: 0;
+            overflow-x: hidden;
         }
 
-        /* Outer Magazine Canvas matching exact proportions */
+        /* Outer Magazine Canvas scaled natively to fit mobile screens without zoom-out */
         .magazine-cover {
             position: relative;
-            width: 100%;
+            width: 100vw;
             max-width: 420px;
-            height: 600px;
+            height: 100vh;
+            max-height: 600px;
             background-color: var(--bg-color);
-            border: 1px solid #d4dcdc;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+            border: none;
+            box-shadow: none;
             overflow: hidden;
-            padding: 16px 20px 20px 20px;
+            padding: 14px 16px 16px 16px;
+        }
+
+        @media (min-width: 421px) {
+            .magazine-cover {
+                border: 1px solid #d4dcdc;
+                box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+                height: 600px;
+                padding: 16px 20px 20px 20px;
+            }
         }
 
         /* Fullscreen Menu Overlay matched to header color */
@@ -219,7 +231,7 @@
             text-transform: uppercase;
         }
 
-        /* Image Container */
+        /* Image Container - slightly shorter to provide spacing from bottom text */
         .olive-container {
             position: absolute;
             top: 135px;
@@ -230,7 +242,7 @@
 
         .olive-rectangle {
             width: 100%;
-            height: 395px;
+            height: 380px;
             overflow: hidden;
         }
 
@@ -269,46 +281,55 @@
             margin: 12px 0 0 0;
         }
 
-        /* 3. Bottom Section: Mint Box & Paragraph Text */
+        /* 3. Bottom Section: Mint Box & Line-by-Line Stacked Paragraph Centered Under Image */
         .bottom-section {
             position: absolute;
-            bottom: 20px;
-            left: 20px;
-            right: 20px;
+            bottom: 12px;
+            left: 16px;
+            right: 16px;
             z-index: 5;
             display: grid;
-            grid-template-columns: 85px 1fr;
-            gap: 12px;
-            align-items: flex-end;
+            grid-template-columns: 80px 1fr;
+            gap: 10px;
+            align-items: center;
         }
 
         .mint-bottom-box {
             background-color: var(--mint-box);
-            padding: 10px 8px;
+            padding: 8px 6px;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
-            height: 75px;
+            height: 70px;
         }
 
         .mint-bottom-box .num-ten {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 1.15rem;
+            font-size: 1.1rem;
             font-weight: 600;
             color: var(--text-dark);
             line-height: 1;
             letter-spacing: 0.5px;
         }
 
+        /* Stacked sentences structure: each sentence on its own block line, centered */
         .lorem-paragraph {
-            font-size: 0.53rem;
-            line-height: 1.45;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: 3px;
+            margin: 0;
+            padding: 0;
+        }
+
+        .lorem-paragraph span {
+            font-size: 0.52rem;
+            line-height: 1.25;
             color: var(--lime-eighty);
             font-weight: 500;
-            padding-bottom: 2px;
-            text-align: center;
         }
     </style>
 </head>
@@ -377,9 +398,11 @@
             <div class="mint-bottom-box">
                 <span class="num-ten">EST. 2026</span>
             </div>
-            <p class="lorem-paragraph">
-                Rooted in ancient traditions and modern reflection. Discover timeless remedies, stories of daily life, and the hidden histories that shape our understanding of growth.
-            </p>
+            <div class="lorem-paragraph">
+                <span>Rooted in ancient traditions and modern reflection.</span>
+                <span>Discover timeless remedies, stories of daily life,</span>
+                <span>and the hidden histories that shape our understanding of growth.</span>
+            </div>
         </div>
     </div>
 
