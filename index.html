@@ -536,6 +536,7 @@
 </head>
 <body>
 
+    <!-- MAIN MAGAZINE COVER -->
     <div class="magazine-cover" id="mainCover">
         <nav class="fullscreen-menu" id="fullscreenMenu">
             <button class="back-btn" onclick="toggleMenu()">← Back</button>
@@ -603,6 +604,7 @@
         </div>
     </div>
 
+    <!-- BLOG PAGE FEED -->
     <div class="blog-page" id="blogPage">
         <div class="blog-header">
             <span class="blog-header-title">The Field Notes</span>
@@ -610,9 +612,11 @@
         </div>
 
         <div class="blog-feed" id="blogFeedContainer">
-            </div>
+            <!-- Blog posts load here dynamically from blog-data.js -->
+        </div>
     </div>
 
+    <!-- RESOURCES SUB-MENU PAGE -->
     <div class="blog-page" id="resourcesPage">
         <div class="blog-header">
             <span class="blog-header-title">Resources & Policies</span>
@@ -654,6 +658,7 @@
             </div>
         </div>
 
+        <!-- PDF VIEWER SUB-VIEW (View Only, Mobile Safe Blob Stream) -->
         <div class="pdf-viewer-view" id="pdfView">
             <div class="blog-header">
                 <span class="blog-header-title" id="pdfTitle">Document</span>
@@ -665,6 +670,7 @@
         </div>
     </div>
 
+    <!-- Link your separate blog database file -->
     <script src="blog-data.js"></script>
 
     <script>
