@@ -27,36 +27,36 @@
         }
 
         body {
-            background-color: #e8ede9;
+            background-color: var(--bg-color);
             font-family: 'Montserrat', sans-serif;
-            min-height: 100vh;
+            width: 100vw;
+            height: 100dvh; /* Automatically fits mobile screen height dynamically */
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 0;
-            margin: 0;
-            overflow: hidden; /* Lock scroll for a pure app/magazine feel */
+            overflow: hidden;
         }
 
-        /* Vertical Portrait Magazine Canvas */
+        /* Fully responsive phone-detecting container */
         .magazine-cover {
             position: relative;
             width: 100vw;
-            max-width: 400px;
-            height: 100vh;
-            max-height: 750px; /* Taller vertical ratio */
+            height: 100dvh;
             background-color: var(--bg-color);
-            border: none;
-            box-shadow: none;
             overflow: hidden;
-            padding: 16px;
+            padding: 14px 16px 16px 16px;
+            display: flex;
+            flex-direction: column;
         }
 
-        @media (min-width: 401px) {
+        /* On larger desktop screens, frame it nicely like a card */
+        @media (min-width: 421px) {
             .magazine-cover {
+                max-width: 420px;
+                height: 85vh;
+                max-height: 750px;
                 border: 1px solid #d4dcdc;
                 box-shadow: 0 20px 40px rgba(0,0,0,0.08);
-                height: 85vh; /* Elegant vertical card on desktop */
             }
         }
 
@@ -159,13 +159,13 @@
             opacity: 0.6;
         }
 
-        /* Top Banner */
+        /* Top Mint Banner Header */
         .top-mint-banner {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
-            height: 120px;
+            height: 130px;
             background-color: var(--mint-box);
             z-index: 2;
             padding: 16px 20px 0 20px;
@@ -186,7 +186,7 @@
             width: 100%;
             height: 1px;
             background-color: #555877;
-            margin-top: 8px;
+            margin-top: 6px;
         }
 
         .menu-btn {
@@ -210,32 +210,33 @@
         /* CHAPTER Title */
         .chapter-container {
             position: absolute;
-            top: 45px;
-            left: 18px;
+            top: 50px;
+            left: 20px;
             z-index: 3;
         }
 
         .chapter-heading {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 3.2rem;
+            font-size: 3.4rem;
             font-weight: 400;
             color: var(--chapter-white);
             line-height: 0.9;
             text-transform: uppercase;
         }
 
-        /* Vertical Image Layout */
+        /* Original Image Position Restored */
         .olive-container {
             position: absolute;
-            top: 125px;
-            left: 105px;
-            right: 16px;
+            top: 135px;
+            left: 125px;
+            right: 20px;
+            bottom: 95px;
             z-index: 4;
         }
 
         .olive-rectangle {
             width: 100%;
-            height: 440px; /* Extended height for portrait orientation */
+            height: 100%;
             overflow: hidden;
         }
 
@@ -246,12 +247,13 @@
             display: block;
         }
 
-        /* Number 81 */
+        /* Original Number 81 Position Restored */
         .eighty-one-container {
             position: absolute;
-            top: 95px;
-            left: 16px;
-            width: 80px;
+            top: 100px;
+            left: 20px;
+            width: 90px;
+            bottom: 95px;
             z-index: 6;
             display: flex;
             flex-direction: column;
@@ -260,7 +262,7 @@
 
         .number-eighty-one {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 5.8rem;
+            font-size: 6.2rem;
             font-weight: 400;
             color: var(--lime-eighty);
             line-height: 0.85;
@@ -269,38 +271,38 @@
 
         .vertical-line {
             width: 1px;
-            height: 260px; /* Longer separator line to match portrait view */
+            flex-grow: 1;
             background-color: #d1ccb6;
-            margin: 10px 0 0 0;
+            margin: 12px 0 0 0;
         }
 
-        /* Bottom Section */
+        /* Bottom Section Restored with Yellow Text */
         .bottom-section {
             position: absolute;
-            bottom: 16px;
+            bottom: 12px;
             left: 16px;
             right: 16px;
             z-index: 5;
             display: grid;
-            grid-template-columns: 75px 1fr;
+            grid-template-columns: 80px 1fr;
             gap: 10px;
             align-items: center;
         }
 
         .mint-bottom-box {
             background-color: var(--mint-box);
-            padding: 8px 4px;
+            padding: 8px 6px;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
-            height: 65px;
+            height: 70px;
         }
 
         .mint-bottom-box .num-ten {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 1rem;
+            font-size: 1.1rem;
             font-weight: 600;
             color: var(--text-dark);
             line-height: 1;
@@ -316,9 +318,9 @@
         }
 
         .lorem-paragraph span {
-            font-size: 0.5rem;
+            font-size: 0.52rem;
             line-height: 1.25;
-            color: var(--mint-box); /* Swapped to dark text for contrast on white background */
+            color: var(--lime-eighty); /* Restored back to your yellow color */
             font-weight: 500;
         }
     </style>
