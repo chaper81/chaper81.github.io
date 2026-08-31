@@ -14,7 +14,7 @@
     <style>
         :root {
             --bg-color: #ffffff;
-            --mint-box: #3d405b;       /* Deep Indigo Blue */
+            --mint-box: #3d405b;      /* Deep Indigo Blue */
             --text-dark: #f4f1de;      /* Vintage Cream */
             --chapter-white: #ffffff;  /* Pure White for Chapter */
             --lime-eighty: #f7ce14;    /* Yellow for 81, Paragraph, and TOC Numbers */
@@ -35,33 +35,32 @@
             align-items: center;
             padding: 0;
             margin: 0;
-            overflow-x: hidden;
+            overflow: hidden; /* Lock scroll for a pure app/magazine feel */
         }
 
-        /* Outer Magazine Canvas scaled natively to fit mobile screens without zoom-out */
+        /* Vertical Portrait Magazine Canvas */
         .magazine-cover {
             position: relative;
             width: 100vw;
-            max-width: 420px;
+            max-width: 400px;
             height: 100vh;
-            max-height: 600px;
+            max-height: 750px; /* Taller vertical ratio */
             background-color: var(--bg-color);
             border: none;
             box-shadow: none;
             overflow: hidden;
-            padding: 14px 16px 16px 16px;
+            padding: 16px;
         }
 
-        @media (min-width: 421px) {
+        @media (min-width: 401px) {
             .magazine-cover {
                 border: 1px solid #d4dcdc;
                 box-shadow: 0 20px 40px rgba(0,0,0,0.08);
-                height: 600px;
-                padding: 16px 20px 20px 20px;
+                height: 85vh; /* Elegant vertical card on desktop */
             }
         }
 
-        /* Fullscreen Menu Overlay matched to header color */
+        /* Fullscreen Menu Overlay */
         .fullscreen-menu {
             position: absolute;
             top: 0;
@@ -69,7 +68,7 @@
             width: 100%;
             height: 100%;
             background-color: var(--mint-box);
-            z-index: 1; /* Hidden behind cover content initially */
+            z-index: 1;
             display: flex;
             opacity: 0;
             pointer-events: none;
@@ -78,34 +77,32 @@
         }
 
         .fullscreen-menu.active {
-            z-index: 20; /* Pops to the front when active */
+            z-index: 20;
             opacity: 1;
             pointer-events: auto;
         }
 
-        /* Vertical Table of Contents Header on the right (White) */
         .toc-vertical-title {
             position: absolute;
-            top: 25px;
-            right: 15px;
+            top: 30px;
+            right: 20px;
             font-family: 'Montserrat', sans-serif;
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             font-weight: 500;
             letter-spacing: 6px;
-            color: #ffffff; /* Pure white */
+            color: #ffffff;
             writing-mode: vertical-rl;
             text-orientation: mixed;
             text-transform: uppercase;
             line-height: 1;
         }
 
-        /* Left Side List Area optimized to fit 6 items perfectly without scrolling */
         .toc-content-area {
             position: absolute;
-            top: 75px;
-            bottom: 20px;
-            left: 20px;
-            right: 60px;
+            top: 80px;
+            bottom: 30px;
+            left: 24px;
+            right: 70px;
             display: flex;
             flex-direction: column;
             justify-content: space-evenly;
@@ -124,35 +121,33 @@
 
         .toc-number {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 1.6rem;
+            font-size: 1.8rem;
             font-weight: 400;
-            color: var(--lime-eighty); /* #f7ce14 */
+            color: var(--lime-eighty);
             line-height: 0.9;
-            min-width: 32px;
+            min-width: 35px;
             text-align: right;
-            margin-right: 12px;
+            margin-right: 14px;
         }
 
         .toc-title {
             font-family: 'Montserrat', sans-serif;
-            font-size: 0.65rem;
+            font-size: 0.7rem;
             font-weight: 600;
-            letter-spacing: 1.5px;
+            letter-spacing: 2px;
             color: #ffffff;
             text-transform: uppercase;
-            line-height: 1.2;
         }
 
-        /* Back Button inside the Fullscreen Menu (placed at top-left) */
         .back-btn {
             position: absolute;
-            top: 20px;
-            left: 20px;
+            top: 24px;
+            left: 24px;
             background: none;
             border: none;
             cursor: pointer;
             font-family: 'Montserrat', sans-serif;
-            font-size: 0.6rem;
+            font-size: 0.65rem;
             letter-spacing: 2px;
             font-weight: 600;
             color: var(--text-dark);
@@ -164,16 +159,16 @@
             opacity: 0.6;
         }
 
-        /* 1. Top Mint Background Banner Header */
+        /* Top Banner */
         .top-mint-banner {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
-            height: 140px;
+            height: 120px;
             background-color: var(--mint-box);
             z-index: 2;
-            padding: 14px 22px 0 22px;
+            padding: 16px 20px 0 20px;
         }
 
         .top-banner-text {
@@ -191,10 +186,9 @@
             width: 100%;
             height: 1px;
             background-color: #555877;
-            margin-top: 6px;
+            margin-top: 8px;
         }
 
-        /* Text Menu Button Styling */
         .menu-btn {
             background: none;
             border: none;
@@ -213,36 +207,35 @@
             opacity: 0.7;
         }
 
-        /* CHAPTER Title container */
+        /* CHAPTER Title */
         .chapter-container {
             position: absolute;
-            top: 50px;
-            left: 20px;
+            top: 45px;
+            left: 18px;
             z-index: 3;
         }
 
         .chapter-heading {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 3.4rem;
+            font-size: 3.2rem;
             font-weight: 400;
-            color: var(--chapter-white); /* Pure white */
+            color: var(--chapter-white);
             line-height: 0.9;
-            letter-spacing: 0px;
             text-transform: uppercase;
         }
 
-        /* Image Container - slightly shorter to provide spacing from bottom text */
+        /* Vertical Image Layout */
         .olive-container {
             position: absolute;
-            top: 135px;
-            left: 125px;
-            right: 20px;
+            top: 125px;
+            left: 105px;
+            right: 16px;
             z-index: 4;
         }
 
         .olive-rectangle {
             width: 100%;
-            height: 380px;
+            height: 440px; /* Extended height for portrait orientation */
             overflow: hidden;
         }
 
@@ -253,12 +246,12 @@
             display: block;
         }
 
-        /* Number 81 container positioned on the boundary */
+        /* Number 81 */
         .eighty-one-container {
             position: absolute;
-            top: 100px;
-            left: 20px;
-            width: 90px;
+            top: 95px;
+            left: 16px;
+            width: 80px;
             z-index: 6;
             display: flex;
             flex-direction: column;
@@ -267,68 +260,65 @@
 
         .number-eighty-one {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 6.2rem;
+            font-size: 5.8rem;
             font-weight: 400;
-            color: var(--lime-eighty); /* #f7ce14 */
+            color: var(--lime-eighty);
             line-height: 0.85;
             text-align: center;
         }
 
         .vertical-line {
             width: 1px;
-            height: 220px;
+            height: 260px; /* Longer separator line to match portrait view */
             background-color: #d1ccb6;
-            margin: 12px 0 0 0;
+            margin: 10px 0 0 0;
         }
 
-        /* 3. Bottom Section: Mint Box & Line-by-Line Stacked Paragraph Centered Under Image */
+        /* Bottom Section */
         .bottom-section {
             position: absolute;
-            bottom: 12px;
+            bottom: 16px;
             left: 16px;
             right: 16px;
             z-index: 5;
             display: grid;
-            grid-template-columns: 80px 1fr;
+            grid-template-columns: 75px 1fr;
             gap: 10px;
             align-items: center;
         }
 
         .mint-bottom-box {
             background-color: var(--mint-box);
-            padding: 8px 6px;
+            padding: 8px 4px;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
-            height: 70px;
+            height: 65px;
         }
 
         .mint-bottom-box .num-ten {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 1.1rem;
+            font-size: 1rem;
             font-weight: 600;
             color: var(--text-dark);
             line-height: 1;
             letter-spacing: 0.5px;
         }
 
-        /* Stacked sentences structure: each sentence on its own block line, centered */
         .lorem-paragraph {
             display: flex;
             flex-direction: column;
             align-items: center;
             text-align: center;
             gap: 3px;
-            margin: 0;
-            padding: 0;
         }
 
         .lorem-paragraph span {
-            font-size: 0.52rem;
+            font-size: 0.5rem;
             line-height: 1.25;
-            color: var(--lime-eighty);
+            color: var(--mint-box); /* Swapped to dark text for contrast on white background */
             font-weight: 500;
         }
     </style>
@@ -412,7 +402,6 @@
             menu.classList.toggle('active');
         }
 
-        // Register Service Worker for PWA functionality
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
                 navigator.serviceWorker.register('sw.js')
@@ -421,6 +410,5 @@
             });
         }
     </script>
-
 </body>
 </html>
