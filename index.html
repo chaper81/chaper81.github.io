@@ -3,7 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chapter 81 - Magazine Cover Replica</title>
+    <title>Chapter 81</title>
+    <link rel="manifest" href="manifest.json">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Chapter 81">
+    <link rel="apple-touch-icon" href="c81.png">
+    
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -11,7 +17,7 @@
             --mint-box: #3d405b;       /* Deep Indigo Blue */
             --text-dark: #f4f1de;      /* Vintage Cream */
             --chapter-white: #ffffff;  /* Pure White for Chapter */
-            --lime-eighty: #fcf403;    /* Bright Yellow for 81 */
+            --lime-eighty: #f7ce14;    /* Yellow for 81, Paragraph, and TOC Numbers */
         }
 
         * {
@@ -43,7 +49,7 @@
             padding: 16px 20px 20px 20px;
         }
 
-        /* Fullscreen Menu Overlay - Completely independent layer */
+        /* Fullscreen Menu Overlay matched to header color */
         .fullscreen-menu {
             position: absolute;
             top: 0;
@@ -53,12 +59,10 @@
             background-color: var(--mint-box);
             z-index: 1; /* Hidden behind cover content initially */
             display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
             opacity: 0;
             pointer-events: none;
             transition: opacity 0.3s ease;
+            padding: 24px 20px;
         }
 
         .fullscreen-menu.active {
@@ -67,42 +71,80 @@
             pointer-events: auto;
         }
 
-        .fullscreen-menu ul {
-            list-style: none;
-            text-align: center;
-        }
-
-        .fullscreen-menu li {
-            margin: 20px 0;
-        }
-
-        .fullscreen-menu li a {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 2rem;
-            color: var(--text-dark);
-            text-decoration: none;
-            letter-spacing: 2px;
+        /* Vertical Table of Contents Header on the right (White) */
+        .toc-vertical-title {
+            position: absolute;
+            top: 25px;
+            right: 15px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 500;
+            letter-spacing: 6px;
+            color: #ffffff; /* Pure white */
+            writing-mode: vertical-rl;
+            text-orientation: mixed;
             text-transform: uppercase;
-            transition: color 0.2s;
+            line-height: 1;
         }
 
-        .fullscreen-menu li a:hover {
+        /* Left Side List Area optimized to fit 6 items perfectly without scrolling */
+        .toc-content-area {
+            position: absolute;
+            top: 75px;
+            bottom: 20px;
+            left: 20px;
+            right: 60px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-evenly;
+        }
+
+        .toc-item {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            transition: opacity 0.2s;
+        }
+
+        .toc-item:hover {
+            opacity: 0.75;
+        }
+
+        .toc-number {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.6rem;
+            font-weight: 400;
+            color: var(--lime-eighty); /* #f7ce14 */
+            line-height: 0.9;
+            min-width: 32px;
+            text-align: right;
+            margin-right: 12px;
+        }
+
+        .toc-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.65rem;
+            font-weight: 600;
+            letter-spacing: 1.5px;
             color: #ffffff;
+            text-transform: uppercase;
+            line-height: 1.2;
         }
 
-        /* Back Button inside the Fullscreen Menu */
+        /* Back Button inside the Fullscreen Menu (placed at top-left) */
         .back-btn {
+            position: absolute;
+            top: 20px;
+            left: 20px;
             background: none;
             border: none;
             cursor: pointer;
             font-family: 'Montserrat', sans-serif;
-            font-size: 0.65rem;
+            font-size: 0.6rem;
             letter-spacing: 2px;
             font-weight: 600;
             color: var(--text-dark);
             text-transform: uppercase;
-            margin-top: 30px;
-            padding: 8px 16px;
             transition: opacity 0.2s;
         }
 
@@ -215,7 +257,7 @@
             font-family: 'Cormorant Garamond', serif;
             font-size: 6.2rem;
             font-weight: 400;
-            color: var(--lime-eighty); /* Updated to #fcf403 */
+            color: var(--lime-eighty); /* #f7ce14 */
             line-height: 0.85;
             text-align: center;
         }
@@ -263,8 +305,8 @@
         .lorem-paragraph {
             font-size: 0.53rem;
             line-height: 1.45;
-            color: #7d7d8a;
-            font-weight: 400;
+            color: var(--lime-eighty);
+            font-weight: 500;
             padding-bottom: 2px;
             text-align: center;
         }
@@ -273,22 +315,42 @@
 <body>
 
     <div class="magazine-cover">
-        <!-- Fullpage Menu Hidden Behind Content -->
         <nav class="fullscreen-menu" id="fullscreenMenu">
-            <ul>
-                <li><a href="#" onclick="toggleMenu()">1. Herbalism</a></li>
-                <li><a href="#" onclick="toggleMenu()">2. Life</a></li>
-                <li><a href="#" onclick="toggleMenu()">3. History</a></li>
-            </ul>
-            <!-- Back Button -->
-            <button class="back-btn" onclick="toggleMenu()">BACK</button>
+            <button class="back-btn" onclick="toggleMenu()">← Back</button>
+            
+            <div class="toc-vertical-title">Table of Contents</div>
+
+            <div class="toc-content-area">
+                <a href="#" class="toc-item" onclick="toggleMenu()">
+                    <span class="toc-number">1</span>
+                    <span class="toc-title">Bio</span>
+                </a>
+                <a href="#" class="toc-item" onclick="toggleMenu()">
+                    <span class="toc-number">2</span>
+                    <span class="toc-title">Blog</span>
+                </a>
+                <a href="#" class="toc-item" onclick="toggleMenu()">
+                    <span class="toc-number">3</span>
+                    <span class="toc-title">Email</span>
+                </a>
+                <a href="#" class="toc-item" onclick="toggleMenu()">
+                    <span class="toc-number">4</span>
+                    <span class="toc-title">Instagram</span>
+                </a>
+                <a href="#" class="toc-item" onclick="toggleMenu()">
+                    <span class="toc-number">5</span>
+                    <span class="toc-title">Resources</span>
+                </a>
+                <a href="#" class="toc-item" onclick="toggleMenu()">
+                    <span class="toc-number">6</span>
+                    <span class="toc-title">Seed to Harvest</span>
+                </a>
+            </div>
         </nav>
 
-        <!-- Top Mint Section Background -->
         <div class="top-mint-banner">
             <div class="top-banner-text">
                 <span>VOLUME I</span>
-                <!-- Text Menu Button -->
                 <button class="menu-btn" onclick="toggleMenu()" aria-label="Toggle Menu">
                     MENU
                 </button>
@@ -296,25 +358,21 @@
             <div class="banner-line"></div>
         </div>
 
-        <!-- CHAPTER Title Container -->
         <div class="chapter-container">
             <h1 class="chapter-heading">CHAPTER</h1>
         </div>
 
-        <!-- Image Container linked to red hibi.jpg -->
         <div class="olive-container">
             <div class="olive-rectangle">
                 <img src="red hibi.jpg" alt="Red Hibiscus">
             </div>
         </div>
 
-        <!-- 3. Number 81 Container -->
         <div class="eighty-one-container">
             <div class="number-eighty-one">81</div>
             <div class="vertical-line"></div>
         </div>
 
-        <!-- Bottom Feature Block -->
         <div class="bottom-section">
             <div class="mint-bottom-box">
                 <span class="num-ten">EST. 2026</span>
@@ -329,6 +387,15 @@
         function toggleMenu() {
             const menu = document.getElementById('fullscreenMenu');
             menu.classList.toggle('active');
+        }
+
+        // Register Service Worker for PWA functionality
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('sw.js')
+                    .then(reg => console.log('Service Worker registered!', reg))
+                    .catch(err => console.log('Service Worker registration failed: ', err));
+            });
         }
     </script>
 
