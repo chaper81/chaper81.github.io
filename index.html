@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chapter 81</title>
+    <title>Chapter 81 - Magazine Cover Replica</title>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -11,7 +11,7 @@
             --mint-box: #3d405b;       /* Deep Indigo Blue */
             --text-dark: #f4f1de;      /* Vintage Cream */
             --chapter-white: #ffffff;  /* Pure White for Chapter */
-            --lime-eighty: #d8e2dc;    /* Light Silver */
+            --lime-eighty: #fff8c8;    /* Updated color for 81 */
         }
 
         * {
@@ -171,13 +171,13 @@
             font-family: 'Cormorant Garamond', serif;
             font-size: 3.4rem;
             font-weight: 400;
-            color: var(--chapter-white);
+            color: var(--chapter-white); /* Pure white */
             line-height: 0.9;
             letter-spacing: 0px;
             text-transform: uppercase;
         }
 
-        /* Image Container replacing the solid Terracotta block */
+        /* Image Container */
         .olive-container {
             position: absolute;
             top: 135px;
@@ -195,7 +195,7 @@
         .olive-rectangle img {
             width: 100%;
             height: 100%;
-            object-fit: cover; /* Ensures the image fills the area neatly */
+            object-fit: cover;
             display: block;
         }
 
@@ -215,7 +215,7 @@
             font-family: 'Cormorant Garamond', serif;
             font-size: 6.2rem;
             font-weight: 400;
-            color: var(--lime-eighty);
+            color: var(--lime-eighty); /* Updated to #fff8c8 */
             line-height: 0.85;
             text-align: center;
         }
@@ -273,18 +273,22 @@
 <body>
 
     <div class="magazine-cover">
+        <!-- Fullpage Menu Hidden Behind Content -->
         <nav class="fullscreen-menu" id="fullscreenMenu">
             <ul>
                 <li><a href="#" onclick="toggleMenu()">1. Herbalism</a></li>
                 <li><a href="#" onclick="toggleMenu()">2. Life</a></li>
                 <li><a href="#" onclick="toggleMenu()">3. History</a></li>
             </ul>
+            <!-- Back Button -->
             <button class="back-btn" onclick="toggleMenu()">BACK</button>
         </nav>
 
+        <!-- Top Mint Section Background -->
         <div class="top-mint-banner">
             <div class="top-banner-text">
                 <span>VOLUME I</span>
+                <!-- Text Menu Button -->
                 <button class="menu-btn" onclick="toggleMenu()" aria-label="Toggle Menu">
                     MENU
                 </button>
@@ -292,21 +296,25 @@
             <div class="banner-line"></div>
         </div>
 
+        <!-- CHAPTER Title Container -->
         <div class="chapter-container">
             <h1 class="chapter-heading">CHAPTER</h1>
         </div>
 
+        <!-- Image Container linked to red hibi.jpg -->
         <div class="olive-container">
             <div class="olive-rectangle">
-                <img src="rose of sharon" alt="Rose of Sharon">
+                <img src="red hibi.jpg" alt="Red Hibiscus">
             </div>
         </div>
 
+        <!-- 3. Number 81 Container -->
         <div class="eighty-one-container">
             <div class="number-eighty-one">81</div>
             <div class="vertical-line"></div>
         </div>
 
+        <!-- Bottom Feature Block -->
         <div class="bottom-section">
             <div class="mint-bottom-box">
                 <span class="num-ten">EST. 2026</span>
