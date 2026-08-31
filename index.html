@@ -509,7 +509,7 @@
             color: var(--mint-box);
         }
 
-        /* PDF Viewer Sub-View */
+        /* Offline Local PDF Viewer Sub-View */
         .pdf-viewer-view {
             position: absolute;
             top: 0;
@@ -534,7 +534,6 @@
 </head>
 <body>
 
-    <!-- MAIN MAGAZINE COVER -->
     <div class="magazine-cover" id="mainCover">
         <nav class="fullscreen-menu" id="fullscreenMenu">
             <button class="back-btn" onclick="toggleMenu()">← Back</button>
@@ -602,7 +601,6 @@
         </div>
     </div>
 
-    <!-- BLOG PAGE FEED -->
     <div class="blog-page" id="blogPage">
         <div class="blog-header">
             <span class="blog-header-title">The Field Notes</span>
@@ -610,11 +608,9 @@
         </div>
 
         <div class="blog-feed" id="blogFeedContainer">
-            <!-- Blog posts load here dynamically from blog-data.js -->
-        </div>
+            </div>
     </div>
 
-    <!-- RESOURCES SUB-MENU PAGE -->
     <div class="blog-page" id="resourcesPage">
         <div class="blog-header">
             <span class="blog-header-title">Resources & Policies</span>
@@ -622,23 +618,23 @@
         </div>
 
         <div class="resources-menu-list">
-            <div class="resource-card" onclick="openPdf('resources/terms_of_use.pdf', 'Terms of Use')">
+            <div class="resource-card" onclick="openPdf('resources/terms.pdf', 'Terms of Use')">
                 <span class="resource-card-title">Terms of Use Policy</span>
                 <span class="resource-card-arrow">→</span>
             </div>
-            <div class="resource-card" onclick="openPdf('resources/shipping_policy.pdf', 'Shipping & Delivery')">
+            <div class="resource-card" onclick="openPdf('resources/shipping.pdf', 'Shipping & Delivery')">
                 <span class="resource-card-title">Shipping and Delivery Policy</span>
                 <span class="resource-card-arrow">→</span>
             </div>
-            <div class="resource-card" onclick="openPdf('resources/store_policy.pdf', 'Store Policy')">
+            <div class="resource-card" onclick="openPdf('resources/store.pdf', 'Store Policy')">
                 <span class="resource-card-title">Store Policy</span>
                 <span class="resource-card-arrow">→</span>
             </div>
-            <div class="resource-card" onclick="openPdf('resources/digital_products_policy.pdf', 'Digital Products')">
+            <div class="resource-card" onclick="openPdf('resources/digital.pdf', 'Digital Products')">
                 <span class="resource-card-title">Digital Products Policy</span>
                 <span class="resource-card-arrow">→</span>
             </div>
-            <div class="resource-card" onclick="openPdf('resources/privacy_policy.pdf', 'Privacy Policy')">
+            <div class="resource-card" onclick="openPdf('resources/privacy.pdf', 'Privacy Policy')">
                 <span class="resource-card-title">Privacy Policy</span>
                 <span class="resource-card-arrow">→</span>
             </div>
@@ -646,17 +642,16 @@
                 <span class="resource-card-title">Disclaimer</span>
                 <span class="resource-card-arrow">→</span>
             </div>
-            <div class="resource-card" onclick="openPdf('resources/cancellation_policy.pdf', 'Cancellation & Rescheduling')">
+            <div class="resource-card" onclick="openPdf('resources/cancelschedule.pdf', 'Cancellation & Rescheduling')">
                 <span class="resource-card-title">Cancellation & Rescheduling Policy</span>
                 <span class="resource-card-arrow">→</span>
             </div>
-            <div class="resource-card" onclick="openPdf('resources/fee_schedule.pdf', 'Fee Schedule')">
+            <div class="resource-card" onclick="openPdf('resources/fees.pdf', 'Fee Schedule')">
                 <span class="resource-card-title">Fee Schedule Policy</span>
                 <span class="resource-card-arrow">→</span>
             </div>
         </div>
 
-        <!-- PDF VIEWER SUB-VIEW (Nested inside Resources Page) -->
         <div class="pdf-viewer-view" id="pdfView">
             <div class="blog-header">
                 <span class="blog-header-title" id="pdfTitle">Document</span>
@@ -670,7 +665,6 @@
         </div>
     </div>
 
-    <!-- EMBEDDED INSTAGRAM PAGE -->
     <div class="blog-page" id="instagramPage">
         <div class="blog-header">
             <span class="blog-header-title">@meandmyharvest</span>
@@ -685,7 +679,6 @@
         </div>
     </div>
 
-    <!-- Link your separate blog database file -->
     <script src="blog-data.js"></script>
 
     <script>
@@ -761,11 +754,13 @@
             }, 200);
         }
 
-        // PDF Navigation Functions
+        // View-Only Local PDF Viewer Functions
         function openPdf(filename, title) {
             document.getElementById('pdfTitle').innerText = title;
-            document.getElementById('pdfObject').data = filename;
-            document.getElementById('pdfFrame').src = filename;
+            const encodedFilename = encodeURI(filename);
+            
+            document.getElementById('pdfObject').data = encodedFilename;
+            document.getElementById('pdfFrame').src = encodedFilename;
             document.getElementById('pdfView').classList.add('active');
         }
 
