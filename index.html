@@ -334,7 +334,7 @@
             white-space: nowrap; 
         }
 
-        /* --- BLOG PAGE STYLES --- */
+        /* --- BLOG & PAGE STYLES --- */
         .blog-page {
             position: absolute;
             top: 0;
@@ -367,7 +367,7 @@
 
         .blog-header-title {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             font-weight: 600;
             letter-spacing: 1px;
             color: var(--chapter-white);
@@ -462,6 +462,74 @@
             font-style: italic;
             color: #555877;
         }
+
+        /* Resources Mini-Menu Grid Styles */
+        .resources-menu-list {
+            flex-grow: 1;
+            overflow-y: auto;
+            padding: 16px 4px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            scrollbar-width: none;
+        }
+
+        .resources-menu-list::-webkit-scrollbar {
+            display: none;
+        }
+
+        .resource-card {
+            background-color: #faf9f5;
+            border: 1px solid #e2e2e2;
+            padding: 14px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            transition: background-color 0.2s, border-color 0.2s;
+        }
+
+        .resource-card:hover {
+            background-color: #f2efe9;
+            border-color: var(--mint-box);
+        }
+
+        .resource-card-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.65rem;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            color: var(--mint-box);
+            text-transform: uppercase;
+        }
+
+        .resource-card-arrow {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1rem;
+            color: var(--mint-box);
+        }
+
+        /* PDF Viewer Sub-View */
+        .pdf-viewer-view {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--bg-color);
+            z-index: 35;
+            display: flex;
+            flex-direction: column;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+            padding: 16px;
+        }
+
+        .pdf-viewer-view.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
     </style>
 </head>
 <body>
@@ -485,14 +553,14 @@
                     <span class="toc-number">3</span>
                     <span class="toc-title">Email</span>
                 </a>
-                <a href="https://docs.google.com/document/d/1gzhUx6GGKfY0IsUWqTSm8uw_Hh7ghYt9re6VdYwoViY/edit?usp=sharing" target="_blank" rel="noopener noreferrer" class="toc-item">
+                <div class="toc-item" onclick="openResources()">
                     <span class="toc-number">4</span>
                     <span class="toc-title">Resources</span>
-                </a>
-                <a href="#" class="toc-item" onclick="toggleMenu()">
+                </div>
+                <div class="toc-item" onclick="openInstagram()">
                     <span class="toc-number">5</span>
-                    <span class="toc-title">Seed to Harvest</span>
-                </a>
+                    <span class="toc-title">Instagram</span>
+                </div>
             </div>
         </nav>
 
@@ -541,6 +609,72 @@
 
         <div class="blog-feed" id="blogFeedContainer">
             </div>
+    </div>
+
+    <div class="blog-page" id="resourcesPage">
+        <div class="blog-header">
+            <span class="blog-header-title">Resources & Policies</span>
+            <button class="blog-back-btn" onclick="closeResources()">← Close</button>
+        </div>
+
+        <div class="resources-menu-list">
+            <div class="resource-card" onclick="openPdf('RESOURCES/TERMS_OF_USE.pdf', 'Terms of Use')">
+                <span class="resource-card-title">Terms of Use Policy</span>
+                <span class="resource-card-arrow">→</span>
+            </div>
+            <div class="resource-card" onclick="openPdf('RESOURCES/SHIPPING_POLICY.pdf', 'Shipping & Delivery')">
+                <span class="resource-card-title">Shipping and Delivery Policy</span>
+                <span class="resource-card-arrow">→</span>
+            </div>
+            <div class="resource-card" onclick="openPdf('RESOURCES/STORE_POLICY.pdf', 'Store Policy')">
+                <span class="resource-card-title">Store Policy</span>
+                <span class="resource-card-arrow">→</span>
+            </div>
+            <div class="resource-card" onclick="openPdf('RESOURCES/DIGITAL_PRODUCTS_POLICY.pdf', 'Digital Products')">
+                <span class="resource-card-title">Digital Products Policy</span>
+                <span class="resource-card-arrow">→</span>
+            </div>
+            <div class="resource-card" onclick="openPdf('RESOURCES/PRIVACY_POLICY.pdf', 'Privacy Policy')">
+                <span class="resource-card-title">Privacy Policy</span>
+                <span class="resource-card-arrow">→</span>
+            </div>
+            <div class="resource-card" onclick="openPdf('RESOURCES/DISCLAIMER.pdf', 'Disclaimer')">
+                <span class="resource-card-title">Disclaimer</span>
+                <span class="resource-card-arrow">→</span>
+            </div>
+            <div class="resource-card" onclick="openPdf('RESOURCES/CANCELLATION_POLICY.pdf', 'Cancellation & Rescheduling')">
+                <span class="resource-card-title">Cancellation & Rescheduling Policy</span>
+                <span class="resource-card-arrow">→</span>
+            </div>
+            <div class="resource-card" onclick="openPdf('RESOURCES/FEE_SCHEDULE.pdf', 'Fee Schedule')">
+                <span class="resource-card-title">Fee Schedule Policy</span>
+                <span class="resource-card-arrow">→</span>
+            </div>
+        </div>
+
+        <div class="pdf-viewer-view" id="pdfView">
+            <div class="blog-header">
+                <span class="blog-header-title" id="pdfTitle">Document</span>
+                <button class="blog-back-btn" onclick="closePdf()">← Back</button>
+            </div>
+            <div style="flex-grow: 1; width: 100%; margin-top: 10px; overflow: hidden; border: 1px solid #e2e2e2; background: #faf9f5;">
+                <iframe id="pdfFrame" src="" style="width: 100%; height: 100%; border: none;"></iframe>
+            </div>
+        </div>
+    </div>
+
+    <div class="blog-page" id="instagramPage">
+        <div class="blog-header">
+            <span class="blog-header-title">@meandmyharvest</span>
+            <button class="blog-back-btn" onclick="closeInstagram()">← Close</button>
+        </div>
+
+        <div style="flex-grow: 1; width: 100%; margin-top: 10px; overflow: hidden; border: 1px solid #e2e2e2; background: #faf9f5;">
+            <iframe src="https://www.instagram.com/meandmyharvest/" 
+                    style="width: 100%; height: 100%; border: none;" 
+                    sandbox="allow-scripts allow-same-origin allow-popups">
+            </iframe>
+        </div>
     </div>
 
     <script src="blog-data.js"></script>
@@ -593,6 +727,74 @@
             setTimeout(() => {
                 mainCover.classList.remove('fade-out');
             }, 200);
+        }
+
+        function openResources() {
+            const menu = document.getElementById('fullscreenMenu');
+            menu.classList.remove('active');
+
+            const mainCover = document.getElementById('mainCover');
+            const resourcesPage = document.getElementById('resourcesPage');
+            
+            mainCover.classList.add('fade-out');
+            setTimeout(() => {
+                resourcesPage.classList.add('active');
+            }, 300);
+        }
+
+        function closeResources() {
+            const mainCover = document.getElementById('mainCover');
+            const resourcesPage = document.getElementById('resourcesPage');
+
+            resourcesPage.classList.remove('active');
+            setTimeout(() => {
+                mainCover.classList.remove('fade-out');
+            }, 200);
+        }
+
+        // PDF Navigation Functions
+        function openPdf(filename, title) {
+            document.getElementById('pdfTitle').innerText = title;
+            document.getElementById('pdfFrame').src = filename;
+            document.getElementById('pdfView').classList.add('active');
+        }
+
+        function closePdf() {
+            document.getElementById('pdfView').classList.remove('active');
+            setTimeout(() => {
+                document.getElementById('pdfFrame').src = '';
+            }, 300);
+        }
+
+        function openInstagram() {
+            const menu = document.getElementById('fullscreenMenu');
+            menu.classList.remove('active');
+
+            const mainCover = document.getElementById('mainCover');
+            const instagramPage = document.getElementById('instagramPage');
+            
+            mainCover.classList.add('fade-out');
+            setTimeout(() => {
+                instagramPage.classList.add('active');
+            }, 300);
+        }
+
+        function closeInstagram() {
+            const mainCover = document.getElementById('mainCover');
+            const instagramPage = document.getElementById('instagramPage');
+
+            instagramPage.classList.remove('active');
+            setTimeout(() => {
+                mainCover.classList.remove('fade-out');
+            }, 200);
+        }
+
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('sw.js')
+                    .then(reg => console.log('Service Worker registered!', reg))
+                    .catch(err => console.log('Service Worker registration failed: ', err));
+            });
         }
     </script>
 </body>
