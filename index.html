@@ -30,14 +30,13 @@
             background-color: var(--bg-color);
             font-family: 'Montserrat', sans-serif;
             width: 100vw;
-            height: 100dvh; /* Automatically fits mobile screen height dynamically */
+            height: 100dvh;
             display: flex;
             justify-content: center;
             align-items: center;
             overflow: hidden;
         }
 
-        /* Fully responsive phone-detecting container */
         .magazine-cover {
             position: relative;
             width: 100vw;
@@ -49,7 +48,6 @@
             flex-direction: column;
         }
 
-        /* On larger desktop screens, frame it nicely like a card */
         @media (min-width: 421px) {
             .magazine-cover {
                 max-width: 420px;
@@ -159,13 +157,13 @@
             opacity: 0.6;
         }
 
-        /* Top Mint Banner Header */
+        /* 1. Longer Top Mint Banner Header */
         .top-mint-banner {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
-            height: 130px;
+            height: 165px; /* Made longer */
             background-color: var(--mint-box);
             z-index: 2;
             padding: 16px 20px 0 20px;
@@ -210,7 +208,7 @@
         /* CHAPTER Title */
         .chapter-container {
             position: absolute;
-            top: 50px;
+            top: 52px;
             left: 20px;
             z-index: 3;
         }
@@ -224,11 +222,11 @@
             text-transform: uppercase;
         }
 
-        /* Original Image Position Restored */
+        /* Wider Flower Picture Container */
         .olive-container {
             position: absolute;
-            top: 135px;
-            left: 125px;
+            top: 165px; /* Starts right below the longer banner */
+            left: 110px; /* Shifted left to make the image wider */
             right: 20px;
             bottom: 95px;
             z-index: 4;
@@ -247,12 +245,12 @@
             display: block;
         }
 
-        /* Original Number 81 Position Restored */
+        /* Number 81 Split Between the Two Colors & Bigger */
         .eighty-one-container {
             position: absolute;
-            top: 100px;
+            top: 115px; /* Positioned right across the boundary line */
             left: 20px;
-            width: 90px;
+            width: 85px;
             bottom: 95px;
             z-index: 6;
             display: flex;
@@ -262,10 +260,10 @@
 
         .number-eighty-one {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 6.2rem;
+            font-size: 7.2rem; /* Made bigger */
             font-weight: 400;
             color: var(--lime-eighty);
-            line-height: 0.85;
+            line-height: 0.8;
             text-align: center;
         }
 
@@ -276,7 +274,7 @@
             margin: 12px 0 0 0;
         }
 
-        /* Bottom Section Restored with Yellow Text */
+        /* Bottom Section */
         .bottom-section {
             position: absolute;
             bottom: 12px;
@@ -320,7 +318,7 @@
         .lorem-paragraph span {
             font-size: 0.52rem;
             line-height: 1.25;
-            color: var(--lime-eighty); /* Restored back to your yellow color */
+            color: var(--lime-eighty);
             font-weight: 500;
         }
     </style>
