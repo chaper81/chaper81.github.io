@@ -98,6 +98,7 @@
             text-orientation: mixed;
             text-transform: uppercase;
             line-height: 1;
+            pointer-events: none; /* Prevents text overlay from blocking clicks */
         }
 
         .toc-content-area {
@@ -109,6 +110,7 @@
             display: flex;
             flex-direction: column;
             justify-content: space-evenly;
+            z-index: 5; /* Ensures menu items sit above everything else */
         }
 
         .toc-item {
