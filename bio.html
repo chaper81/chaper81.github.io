@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Chapter 81 - Bio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400;1,600&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #ffffff;
+            --mint-box: #3d405b;      /* Deep Indigo Blue */
+            --text-dark: #2b2d42;     /* Charcoal Dark Text */
+            --chapter-white: #ffffff; /* Pure White */
+            --lime-eighty: #f7ce14;   /* Yellow Accent */
+            --border-color: #d4dcdc;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #ffffff;
+            font-family: 'Montserrat', sans-serif;
+            width: 100vw;
+            height: 100dvh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .magazine-bio-page {
+            position: relative;
+            width: 100vw;
+            height: 100dvh;
+            background-color: var(--bg-color);
+            overflow: hidden;
+            padding: 12px 14px 14px 14px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        @media (min-width: 421px) {
+            .magazine-bio-page {
+                max-width: 420px;
+                height: 85vh;
+                max-height: 750px;
+                border: 1px solid var(--border-color);
+                box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+            }
+        }
+
+        /* Top Header Strip */
+        .bio-top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.5rem;
+            letter-spacing: 1.5px;
+            font-weight: 600;
+            color: #777;
+            text-transform: uppercase;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 6px;
+            margin-bottom: 10px;
+        }
+
+        .bio-back-link {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.5rem;
+            letter-spacing: 1.5px;
+            font-weight: 600;
+            color: var(--mint-box);
+            text-transform: uppercase;
+            padding: 0;
+            transition: opacity 0.2s;
+        }
+
+        .bio-back-link:hover {
+            opacity: 0.6;
+        }
+
+        /* Scrollable Spread Area */
+        .bio-content-scroll {
+            flex-grow: 1;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            scrollbar-width: none;
+            padding-bottom: 10px;
+        }
+
+        .bio-content-scroll::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* Row 1: Deep Indigo Title Box on Left, Image on Right */
+        .bio-row-top {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            align-items: stretch;
+        }
+
+        .indigo-title-card {
+            background-color: var(--mint-box);
+            padding: 14px 12px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            color: var(--chapter-white);
+            overflow: hidden;
+        }
+
+        .indigo-title-card h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.35rem;
+            font-weight: 400;
+            font-style: italic;
+            line-height: 0.88;
+            letter-spacing: -0.5px;
+        }
+
+        .indigo-title-card h1 span {
+            display: block;
+        }
+
+        .quote-icon {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.3rem;
+            line-height: 1;
+            color: var(--lime-eighty);
+            align-self: flex-end;
+            margin-top: 4px;
+        }
+
+        .bio-img-box {
+            width: 100%;
+            height: 160px;
+            background-color: #faf9f5;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+
+        .bio-img-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* Full Width Text Paragraph */
+        .bio-text-full {
+            font-size: 0.52rem;
+            line-height: 1.45;
+            color: var(--text-dark);
+            font-family: 'Montserrat', sans-serif;
+            text-align: justify;
+        }
+
+        /* Row 2: Two-column layout */
+        .bio-row-middle {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            align-items: stretch;
+        }
+
+        .bio-left-stack {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .bio-tall-img-box {
+            width: 100%;
+            flex-grow: 1;
+            min-height: 240px;
+            background-color: #faf9f5;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+
+        .bio-tall-img-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .sub-headline {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--mint-box);
+            line-height: 1.2;
+            margin-bottom: 4px;
+        }
+
+        /* Footer Link Strip */
+        .bio-footer-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.45rem;
+            letter-spacing: 1px;
+            color: #777;
+            border-top: 1px solid var(--border-color);
+            padding-top: 8px;
+            margin-top: 4px;
+            text-transform: uppercase;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="magazine-bio-page">
+        <div class="bio-top-bar">
+            <span>CHAPTER 81 • PROFILE</span>
+            <span>2026</span>
+            <button class="bio-back-link" onclick="window.location.href='index.html'">← Back</button>
+        </div>
+
+        <div class="bio-content-scroll">
+            
+            <div class="bio-row-top">
+                <div class="indigo-title-card">
+                    <h1>
+                        <span>The one</span>
+                        <span>behind</span>
+                        <span>it all...</span>
+                    </h1>
+                    <div class="quote-icon">“</div>
+                </div>
+                <div class="bio-img-box">
+                    <img src="justthinking2.jpg" alt="The One Behind It All">
+                </div>
+            </div>
+
+            <div class="bio-text-full">
+                Rooted in ancient traditions and modern reflection, Chapter 81 explores the spaces where growth meets intention. This space is dedicated to timeless remedies, reflections on daily life, and the hidden histories that shape our understanding of cultivation.
+            </div>
+
+            <div class="bio-row-middle">
+                <div class="bio-left-stack">
+                    <div class="bio-top-text-group">
+                        <div class="sub-headline">Timeless Elegance in a Mindful Journey</div>
+                        <div class="bio-text-full">
+                            Every story and resource shared here is crafted with care, keeping things grounded, intentional, and quiet in a loud world.
+                        </div>
+                    </div>
+                    <div class="bio-img-box" style="height: 115px;">
+                        <img src="veggie rice.jpg" alt="Veggie Rice">
+                    </div>
+                </div>
+                <div class="bio-tall-img-box">
+                    <img src="lone tomato.jpg" alt="Lone Tomato">
+                </div>
+            </div>
+
+            <div class="bio-footer-bar">
+                <span>chapter81.com</span>
+                <span>---------------------</span>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+</html>
